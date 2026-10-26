@@ -65,7 +65,7 @@ export const Navbar: React.FC<Props> = ({ lang, onLanguageChange, onOpenContactM
           <div className="hidden sm:flex items-center gap-5">
             {/* Minimalist Text-Only Language Toggle */}
             <div className="flex items-center gap-1.5 text-[11px] font-mono text-slate-400">
-              {(['es', 'ca', 'en'] as const).map((l, idx) => (
+              {(['ca', 'es', 'en'] as const).map((l, idx) => (
                 <React.Fragment key={l}>
                   {idx > 0 && <span className="text-slate-600">·</span>}
                   <button
@@ -104,7 +104,7 @@ export const Navbar: React.FC<Props> = ({ lang, onLanguageChange, onOpenContactM
           <div className="flex items-center gap-3 md:hidden">
             {/* Minimalist Language Switcher for Mobile */}
             <div className="flex items-center gap-1 text-[11px] font-mono text-slate-400">
-              {(['es', 'ca', 'en'] as const).map((l, idx) => (
+              {(['ca', 'es', 'en'] as const).map((l, idx) => (
                 <React.Fragment key={l}>
                   {idx > 0 && <span className="text-slate-600">·</span>}
                   <button

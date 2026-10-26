@@ -20,7 +20,9 @@ export const ContactSection: React.FC<Props> = ({
   const [phone, setPhone] = useState('');
   const [email, setEmail] = useState('');
   const [town, setTown] = useState('Terrassa');
-  const [service, setService] = useState('Aerotermia & Suelo Radiante');
+  const [service, setService] = useState(
+    lang === 'ca' ? 'Aerotèrmia & Terra Radiant' : lang === 'en' ? 'Aerothermal & Radiant Floor' : 'Aerotermia & Suelo Radiante'
+  );
   const [message, setMessage] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submittedRef, setSubmittedRef] = useState<string | null>(null);
@@ -254,12 +256,34 @@ export const ContactSection: React.FC<Props> = ({
                     onChange={(e) => setService(e.target.value)}
                     className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-slate-100 focus:outline-none focus:border-cyan-500"
                   >
-                    <option value="Aerotermia & Suelo Radiante">Aerotermia & Suelo Radiante</option>
-                    <option value="Aire Acondicionado Split">Aire Acondicionado Split</option>
-                    <option value="Aire Acondicionado Conductos">Aire Acondicionado por Conductos</option>
-                    <option value="Caldera Condensación Gas">Caldera Condensación Gas</option>
-                    <option value="Fontanería & Descalcificador">Fontanería & Descalcificador</option>
-                    <option value="Mantenimiento RITE">Mantenimiento Oficial RITE</option>
+                    {lang === 'ca' ? (
+                      <>
+                        <option value="Aerotèrmia & Terra Radiant">Aerotèrmia & Terra Radiant</option>
+                        <option value="Aire Condicionat Split">Aire Condicionat Split</option>
+                        <option value="Aire Condicionat per Conductes">Aire Condicionat per Conductes</option>
+                        <option value="Caldera de Condensació Gas">Caldera de Condensació Gas</option>
+                        <option value="Fontaneria & Descalcificador">Fontaneria & Descalcificador</option>
+                        <option value="Manteniment Oficial RITE">Manteniment Oficial RITE</option>
+                      </>
+                    ) : lang === 'en' ? (
+                      <>
+                        <option value="Aerothermal & Radiant Floor">Aerothermal & Radiant Floor</option>
+                        <option value="Split Air Conditioning">Split Air Conditioning</option>
+                        <option value="Ducted Air Conditioning">Ducted Air Conditioning</option>
+                        <option value="Gas Condensing Boiler">Gas Condensing Boiler</option>
+                        <option value="Plumbing & Softener">Plumbing & Water Softener</option>
+                        <option value="Official RITE Maintenance">Official RITE Maintenance</option>
+                      </>
+                    ) : (
+                      <>
+                        <option value="Aerotermia & Suelo Radiante">Aerotermia & Suelo Radiante</option>
+                        <option value="Aire Acondicionado Split">Aire Acondicionado Split</option>
+                        <option value="Aire Acondicionado Conductos">Aire Acondicionado por Conductos</option>
+                        <option value="Caldera Condensación Gas">Caldera Condensación Gas</option>
+                        <option value="Fontanería & Descalcificador">Fontanería & Descalcificador</option>
+                        <option value="Mantenimiento RITE">Mantenimiento Oficial RITE</option>
+                      </>
+                    )}
                   </select>
                 </div>
 

@@ -18,9 +18,9 @@ import { BUSINESS_INFO } from './data/translations';
 import { MessageCircle, Phone } from 'lucide-react';
 
 export default function App() {
-  const [lang, setLang] = useState<Language>('es');
+  const [lang, setLang] = useState<Language>('ca');
   const [isQuoteModalOpen, setIsQuoteModalOpen] = useState(false);
-  const [selectedService, setSelectedService] = useState<string>('Aerotermia & Suelo Radiante');
+  const [selectedService, setSelectedService] = useState<string>('Aerotèrmia & Terra Radiant');
   const [calculationResult, setCalculationResult] = useState<CalculationResult | null>(null);
 
   const handleSelectService = (serviceName: string) => {

@@ -1,6 +1,6 @@
 {
-  "name": "BCN Clima | Climatización, Aerotermia y Fontanería en Terrassa y Barcelona",
-  "description": "Instalación y mantenimiento oficial de aerotermia, aire acondicionado, calderas y fontanería en Terrassa, Sabadell y Barcelona. Técnicos certificados RITE.",
+  "name": "BCN Clima | Climatització, Aerotèrmia i Fontaneria a Terrassa i Barcelona",
+  "description": "Instal·lació i manteniment oficial d'aerotèrmia, aire condicionat, calderes i fontaneria a Terrassa, Sabadell i Barcelona. Tècnics certificats RITE.",
   "requestFramePermissions": [],
   "majorCapabilities": [
     "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
