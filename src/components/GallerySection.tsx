@@ -24,30 +24,42 @@ export const GallerySection: React.FC<Props> = ({ lang }) => {
   const projects: ProjectItem[] = [
     {
       id: 'proj-1',
-      title: 'Aerotermia Monobloc Daikin Altherma 3',
+      title: lang === 'ca' ? 'Aerotèrmia Monobloc Daikin Altherma 3' : lang === 'en' ? 'Daikin Altherma 3 Aerothermal System' : 'Aerotermia Monobloc Daikin Altherma 3',
       category: 'aerotermia',
       location: 'Terrassa (Segle XX)',
       image: 'https://images.unsplash.com/photo-1581094288338-2314dddb7ece?auto=format&fit=crop&w=800&q=80',
       badge: 'COP 4.85 • A+++',
-      description: 'Sustitución de caldera de gasóleo por bomba de calor con suelo radiante y ACS.'
+      description: lang === 'ca'
+        ? 'Substitució de caldera de gasoil per bomba de calor amb terra radiant i ACS.'
+        : lang === 'en'
+        ? 'Replacement of old oil boiler with renewable heat pump, radiant floor, and domestic hot water.'
+        : 'Sustitución de caldera de gasóleo por bomba de calor con suelo radiante y ACS.'
     },
     {
       id: 'proj-2',
-      title: 'Aire Acondicionado por Conductos Invisibles',
+      title: lang === 'ca' ? 'Aire Condicionat per Conductes Invisibles' : lang === 'en' ? 'Concealed Ducted Air Conditioning' : 'Aire Acondicionado por Conductos Invisibles',
       category: 'ac',
       location: 'Terrassa (Can Roca)',
       image: 'https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&w=800&q=80',
       badge: 'Airzone',
-      description: 'Climatización integral en falso techo con difusores lineales motorizados.'
+      description: lang === 'ca'
+        ? 'Climatització integral en fals sostre amb difusors lineals motoritzats Airzone.'
+        : lang === 'en'
+        ? 'Integrated ceiling climate system with motorized Airzone linear diffusers.'
+        : 'Climatización integral en falso techo con difusores lineales motorizados Airzone.'
     },
     {
       id: 'proj-3',
-      title: 'Batería Hidráulica y Descalcificador',
+      title: lang === 'ca' ? 'Bateria Hidràulica i Descalcificador' : lang === 'en' ? 'Hydraulic Manifold & Water Softener' : 'Batería Hidráulica y Descalcificador',
       category: 'plumbing',
       location: 'Sabadell (Centre)',
       image: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=800&q=80',
-      badge: 'Tratamiento Antical',
-      description: 'Instalación de tuberías multicapa PEX y descalcificador para agua de alta dureza.'
+      badge: lang === 'ca' ? 'Tractament Anticalç' : lang === 'en' ? 'Limescale Softener' : 'Tratamiento Antical',
+      description: lang === 'ca'
+        ? 'Instal·lació de canonades multicapa PEX i descalcificador per a aigua d’alta duresa.'
+        : lang === 'en'
+        ? 'Installation of multilayer PEX piping and water softener for local hard water.'
+        : 'Instalación de tuberías multicapa PEX y descalcificador para agua de alta dureza.'
     },
     {
       id: 'proj-4',
@@ -55,26 +67,38 @@ export const GallerySection: React.FC<Props> = ({ lang }) => {
       category: 'ac',
       location: 'Sant Cugat del Vallès',
       image: 'https://images.unsplash.com/photo-1545259741-2ea3ebf61fa3?auto=format&fit=crop&w=800&q=80',
-      badge: 'Silencioso 19dB',
-      description: 'Tres unidades interiores con una sola condensadora exterior oculta en patio.'
+      badge: lang === 'ca' ? 'Silenciós 19dB' : lang === 'en' ? 'Quiet 19dB' : 'Silencioso 19dB',
+      description: lang === 'ca'
+        ? 'Tres unitats interiors amb una sola condensadora exterior oculta en pati.'
+        : lang === 'en'
+        ? 'Three interior units running on a single exterior outdoor unit hidden in courtyard.'
+        : 'Tres unidades interiores con una sola condensadora exterior oculta en patio.'
     },
     {
       id: 'proj-5',
-      title: 'Caldera de Condensación Vaillant ecoTEC Plus',
+      title: lang === 'ca' ? 'Caldera de Condensació Vaillant ecoTEC Plus' : lang === 'en' ? 'Vaillant ecoTEC Plus Condensing Boiler' : 'Caldera de Condensación Vaillant ecoTEC Plus',
       category: 'plumbing',
       location: 'Terrassa (Les Fonts)',
       image: 'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=800&q=80',
-      badge: 'Rendimiento 108%',
-      description: 'Renovación de caldera mural con termostato modulante Wi-Fi y certificado de gas.'
+      badge: lang === 'ca' ? 'Rendiment 108%' : lang === 'en' ? '108% Efficiency' : 'Rendimiento 108%',
+      description: lang === 'ca'
+        ? 'Renovació de caldera mural amb termòstat modulant Wi-Fi i butlletí de gas.'
+        : lang === 'en'
+        ? 'Wall-hung boiler renewal with modulating Wi-Fi thermostat and certified gas inspection.'
+        : 'Renovación de caldera mural con termostato modulante Wi-Fi y certificado de gas.'
     },
     {
       id: 'proj-6',
-      title: 'Climatización VRF Comercial',
+      title: lang === 'ca' ? 'Climatització VRF Comercial' : lang === 'en' ? 'Commercial VRF Air Conditioning' : 'Climatización VRF Comercial',
       category: 'ac',
       location: 'Terrassa (Polígon Nord)',
       image: 'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=800&q=80',
-      badge: 'Sector Terciario',
-      description: 'Instalación en oficinas corporativas con zonificación independiente.'
+      badge: lang === 'ca' ? 'Sector Terciari' : lang === 'en' ? 'Commercial Sector' : 'Sector Terciario',
+      description: lang === 'ca'
+        ? 'Instal·lació en oficines corporatives amb zonificació independent per sala.'
+        : lang === 'en'
+        ? 'Installation in corporate offices with independent room-by-room zoning.'
+        : 'Instalación en oficinas corporativas con zonificación independiente.'
     }
   ];
 

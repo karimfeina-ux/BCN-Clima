@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { Language } from '../types';
 
 interface CinematicScene {
   id: string;
@@ -9,60 +10,65 @@ interface CinematicScene {
   accent: string;
 }
 
-const CINEMATIC_SCENES: CinematicScene[] = [
+const getCinematicScenes = (lang: Language): CinematicScene[] => [
   {
     id: 'aerotermia-villa',
     image: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=2000&q=85',
-    title: 'Aerotermia & Confort Sostenible',
-    subtitle: 'Vivienda unifamiliar con climatización invisible y suelo radiante',
-    location: 'Terrassa • Vallès Occidental',
+    title: lang === 'ca' ? 'Aerotèrmia & Confort Sostenible' : lang === 'en' ? 'Aerothermal & Sustainable Comfort' : 'Aerotermia & Confort Sostenible',
+    subtitle: lang === 'ca' ? 'Habitatge unifamiliar amb climatització invisible i terra radiant' : lang === 'en' ? 'Detached home with concealed HVAC & underfloor heating' : 'Vivienda unifamiliar con climatización invisible y suelo radiante',
+    location: lang === 'en' ? 'Terrassa • Barcelona Region' : 'Terrassa • Vallès Occidental',
     accent: '#38BDF8'
   },
   {
     id: 'ducted-minimal',
     image: 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=2000&q=85',
-    title: 'Climatización por Conductos Airzone',
-    subtitle: 'Difusores lineales motorizados integrados en arquitectura moderna',
+    title: lang === 'ca' ? 'Climatització per Conductes Airzone' : lang === 'en' ? 'Airzone Concealed Ducted AC' : 'Climatización por Conductos Airzone',
+    subtitle: lang === 'ca' ? 'Difusors lineals motoritzats integrats en arquitectura moderna' : lang === 'en' ? 'Motorized linear diffusers integrated into modern architecture' : 'Difusores lineales motorizados integrados en arquitectura moderna',
     location: 'Sant Cugat del Vallès',
     accent: '#06B6D4'
   },
   {
     id: 'heat-pump-exterior',
     image: 'https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=2000&q=85',
-    title: 'Integración Arquitectónica de Alta Eficiencia',
-    subtitle: 'Bombas de calor Daikin & Mitsubishi en terraza exterior',
+    title: lang === 'ca' ? 'Integració Arquitectònica d’Alta Eficiència' : lang === 'en' ? 'High-Efficiency Architectural Integration' : 'Integración Arquitectónica de Alta Eficiencia',
+    subtitle: lang === 'ca' ? 'Bombes de calor Daikin & Mitsubishi en terrassa exterior' : lang === 'en' ? 'Daikin & Mitsubishi heat pumps installed on exterior terrace' : 'Bombas de calor Daikin & Mitsubishi en terraza exterior',
     location: 'Terrassa • Can Roca',
     accent: '#10B981'
   },
   {
     id: 'copper-precision',
     image: 'https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=2000&q=85',
-    title: 'Ingeniería Hidráulica y Calefacción',
-    subtitle: 'Baterías de cobre soldadas a mano y calderas de condensación',
+    title: lang === 'ca' ? 'Enginyeria Hidràulica i Calefacció' : lang === 'en' ? 'Hydronic Engineering & Heating' : 'Ingeniería Hidráulica y Calefacción',
+    subtitle: lang === 'ca' ? 'Bateries de coure soldades a mà i calderes de condensació' : lang === 'en' ? 'Hand-welded copper pipework and condensing boilers' : 'Baterías de cobre soldadas a mano y calderas de condensación',
     location: 'Sabadell • Centre',
     accent: '#F59E0B'
   },
   {
     id: 'water-clarity',
     image: 'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=2000&q=85',
-    title: 'Tratamiento de Agua & Descalcificadores',
-    subtitle: 'Eliminación total de cal y sistemas de osmosis pura directa',
+    title: lang === 'ca' ? 'Tractament d’Aigua & Descalcificadors' : lang === 'en' ? 'Water Treatment & Softeners' : 'Tratamiento de Agua & Descalcificadores',
+    subtitle: lang === 'ca' ? 'Eliminació total de calç i sistemes d’osmosi pura directa' : lang === 'en' ? 'Total limescale elimination and direct reverse osmosis' : 'Eliminación total de cal y sistemas de osmosis pura directa',
     location: 'Terrassa • Les Fonts',
     accent: '#0284C7'
   },
   {
     id: 'twilight-horizon',
     image: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=2000&q=85',
-    title: 'Confort Climático los 365 Días',
-    subtitle: 'Mantenimiento oficial RITE y cobertura en toda Barcelona',
-    location: 'Terrassa & Área Metropolitana',
+    title: lang === 'ca' ? 'Confort Climàtic els 365 Dies' : lang === 'en' ? 'Climate Comfort 365 Days a Year' : 'Confort Climático los 365 Días',
+    subtitle: lang === 'ca' ? 'Manteniment oficial RITE i cobertura a tot el Vallès i Barcelona' : lang === 'en' ? 'Official RITE maintenance and coverage across Barcelona' : 'Mantenimiento oficial RITE y cobertura en toda Barcelona',
+    location: lang === 'en' ? 'Terrassa & Greater Barcelona' : 'Terrassa & Área Metropolitana',
     accent: '#6366F1'
   }
 ];
 
-export const CinematicWorldBackground: React.FC = () => {
+interface Props {
+  lang?: Language;
+}
+
+export const CinematicWorldBackground: React.FC<Props> = ({ lang = 'ca' }) => {
   const [scrollProgress, setScrollProgress] = useState(0);
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const scenes = getCinematicScenes(lang);
 
   // 1. Scroll-tracked progress with smooth damping
   useEffect(() => {
@@ -175,14 +181,14 @@ export const CinematicWorldBackground: React.FC = () => {
     };
   }, []);
 
-  const total = CINEMATIC_SCENES.length;
+  const total = scenes.length;
   const floatIndex = scrollProgress * (total - 1);
   const activeIdx = Math.min(total - 1, Math.floor(floatIndex));
 
   return (
     <div className="fixed inset-0 z-0 pointer-events-none overflow-hidden select-none">
       {/* 1. Cinematic Photographic Landscapes */}
-      {CINEMATIC_SCENES.map((scene, i) => {
+      {scenes.map((scene, i) => {
         const dist = Math.abs(floatIndex - i);
         let opacity = 0;
         if (dist <= 1.1) {
@@ -233,25 +239,25 @@ export const CinematicWorldBackground: React.FC = () => {
         <div className="flex items-center gap-2">
           <span
             className="w-2.5 h-2.5 rounded-full animate-ping"
-            style={{ backgroundColor: CINEMATIC_SCENES[activeIdx]?.accent }}
+            style={{ backgroundColor: scenes[activeIdx]?.accent }}
           />
           <span className="font-bold uppercase tracking-wider text-white text-[11px]">
-            {CINEMATIC_SCENES[activeIdx]?.title}
+            {scenes[activeIdx]?.title}
           </span>
         </div>
         <span className="text-slate-600">|</span>
         <span className="text-slate-300 text-[11px] font-sans">
-          {CINEMATIC_SCENES[activeIdx]?.subtitle}
+          {scenes[activeIdx]?.subtitle}
         </span>
         <span className="text-slate-600">|</span>
         <span className="text-cyan-400 font-mono text-[10px]">
-          {CINEMATIC_SCENES[activeIdx]?.location}
+          {scenes[activeIdx]?.location}
         </span>
       </div>
 
       {/* 5. Connected Scene Progress Bar on Right */}
       <div className="hidden lg:flex fixed right-4 top-1/2 -translate-y-1/2 flex-col items-center gap-2 z-20 pointer-events-none">
-        {CINEMATIC_SCENES.map((s, idx) => {
+        {scenes.map((s, idx) => {
           const isActive = Math.round(floatIndex) === idx;
           return (
             <div

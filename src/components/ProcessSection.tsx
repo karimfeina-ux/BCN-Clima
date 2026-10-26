@@ -47,7 +47,11 @@ export const ProcessSection: React.FC<Props> = ({ lang }) => {
               </div>
 
               <div className="pt-3 mt-4 border-t border-slate-800 text-[11px] font-mono text-slate-400">
-                Paso {index + 1} de 5
+                {lang === 'ca'
+                  ? `Pas ${index + 1} de 5`
+                  : lang === 'en'
+                  ? `Step ${index + 1} of 5`
+                  : `Paso ${index + 1} de 5`}
               </div>
             </div>
           ))}
@@ -60,10 +64,18 @@ export const ProcessSection: React.FC<Props> = ({ lang }) => {
           </div>
           <div>
             <h4 className="text-sm font-bold text-white">
-              Garantía de Limpieza y Cumplimiento
+              {lang === 'ca'
+                ? 'Garantia de Neteja i Compliment'
+                : lang === 'en'
+                ? 'Cleanliness & Execution Guarantee'
+                : 'Garantía de Limpieza y Cumplimiento'}
             </h4>
             <p className="text-xs text-slate-300">
-              Protegemos tus muebles durante el trabajo, realizamos pruebas de estanqueidad y dejamos la vivienda perfectamente recogida.
+              {lang === 'ca'
+                ? 'Protegim els teus mobles durant el treball, realitzem proves d’estanquitat i deixem l’habitatge perfectament net.'
+                : lang === 'en'
+                ? 'We protect your furnishings during installation, conduct thorough pressure tests, and leave your home spotless.'
+                : 'Protegemos tus muebles durante el trabajo, realizamos pruebas de estanqueidad y dejamos la vivienda perfectamente recogida.'}
             </p>
           </div>
         </div>

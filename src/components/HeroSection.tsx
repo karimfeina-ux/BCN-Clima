@@ -35,7 +35,7 @@ export const HeroSection: React.FC<Props> = ({ lang, onOpenContactModal }) => {
       title: lang === 'en' ? 'High-Efficiency Condensing Boilers' : lang === 'ca' ? 'Calderes de Condensació de Gas' : 'Calderas de Condensación de Gas',
       subtitle: lang === 'en' ? 'Instant hot water and rapid home heating' : lang === 'ca' ? 'Aigua calenta instantània i màxim confort' : 'Agua caliente instantánea y máximo confort en radiadores',
       image: 'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=1200&q=85',
-      badge: '108% Rendimiento',
+      badge: lang === 'ca' ? '108% Rendiment' : lang === 'en' ? '108% Efficiency' : '108% Rendimiento',
       saving: lang === 'en' ? '30% gas consumption reduction' : lang === 'ca' ? '30% menys consum de gas' : '30% menos consumo de gas natural',
       feature: lang === 'en' ? 'Official RITE sealed certificate • Rapid 24h installation' : lang === 'ca' ? 'Butlletí oficial RITE • Instal·lació en 24h' : 'Boletín oficial de gas sellado • Instalación limpia en 1 día',
       location: 'Sabadell • Centre'
@@ -110,14 +110,15 @@ export const HeroSection: React.FC<Props> = ({ lang, onOpenContactModal }) => {
                 ))}
               </div>
               <div>
-                <strong className="text-white font-bold">4.9/5</strong> en Google Maps •{' '}
+                <strong className="text-white font-bold">4.9/5</strong>{' '}
+                {lang === 'ca' ? 'a Google Maps • ' : lang === 'en' ? 'on Google Maps • ' : 'en Google Maps • '}
                 <a
                   href={BUSINESS_INFO.mapsUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-cyan-400 hover:underline font-semibold"
                 >
-                  Ver ficha BCN Clima
+                  {lang === 'ca' ? 'Veure fitxa BCN Clima' : lang === 'en' ? 'View BCN Clima profile' : 'Ver ficha BCN Clima'}
                 </a>
               </div>
             </div>
@@ -126,7 +127,7 @@ export const HeroSection: React.FC<Props> = ({ lang, onOpenContactModal }) => {
           {/* Right Column: Perfect Real-World Project & Engineering Showcase Card */}
           <div className="lg:col-span-6" id="simulador-3d">
             <div className="relative rounded-3xl overflow-hidden border border-white/20 bg-slate-950/80 backdrop-blur-2xl shadow-2xl flex flex-col">
-              {/* Category Tab Switcher */}
+              {/* Category Tab Switcher - Fully localized across CA, ES, EN */}
               <div className="p-3 bg-slate-900/80 border-b border-white/10 flex items-center gap-1.5 sm:gap-2">
                 <button
                   onClick={() => setActiveTab('aerotermia')}
@@ -136,7 +137,7 @@ export const HeroSection: React.FC<Props> = ({ lang, onOpenContactModal }) => {
                       : 'text-slate-300 hover:text-white hover:bg-slate-800'
                   }`}
                 >
-                  Aerotermia
+                  {lang === 'ca' ? 'Aerotèrmia' : lang === 'en' ? 'Aerothermal' : 'Aerotermia'}
                 </button>
                 <button
                   onClick={() => setActiveTab('clima')}
@@ -146,7 +147,7 @@ export const HeroSection: React.FC<Props> = ({ lang, onOpenContactModal }) => {
                       : 'text-slate-300 hover:text-white hover:bg-slate-800'
                   }`}
                 >
-                  Aire Acondicionado
+                  {lang === 'ca' ? 'Aire Condicionat' : lang === 'en' ? 'Air Conditioning' : 'Aire Acondicionado'}
                 </button>
                 <button
                   onClick={() => setActiveTab('calefaccion')}
@@ -156,7 +157,7 @@ export const HeroSection: React.FC<Props> = ({ lang, onOpenContactModal }) => {
                       : 'text-slate-300 hover:text-white hover:bg-slate-800'
                   }`}
                 >
-                  Calderas
+                  {lang === 'ca' ? 'Calderes' : lang === 'en' ? 'Boilers' : 'Calderas'}
                 </button>
               </div>
 
@@ -210,14 +211,26 @@ export const HeroSection: React.FC<Props> = ({ lang, onOpenContactModal }) => {
                 <div className="pt-2 flex flex-col sm:flex-row items-center justify-between gap-3">
                   <div className="flex items-center gap-2 text-xs font-mono text-slate-400">
                     <Award className="w-4 h-4 text-cyan-400" />
-                    <span>Garantía Oficial BCN Clima: 5 Años</span>
+                    <span>
+                      {lang === 'ca'
+                        ? 'Garantia Oficial BCN Clima: 5 Anys'
+                        : lang === 'en'
+                        ? 'Official Warranty: 5 Years'
+                        : 'Garantía Oficial BCN Clima: 5 Años'}
+                    </span>
                   </div>
 
                   <button
                     onClick={onOpenContactModal}
                     className="w-full sm:w-auto px-5 py-2.5 rounded-xl bg-cyan-500 hover:bg-cyan-400 active:bg-cyan-600 text-slate-950 font-bold text-xs uppercase tracking-wider transition-colors flex items-center justify-center gap-2 cursor-pointer shadow-lg shadow-cyan-500/20"
                   >
-                    <span>Pedir Presupuesto</span>
+                    <span>
+                      {lang === 'ca'
+                        ? 'Demanar Pressupost'
+                        : lang === 'en'
+                        ? 'Request a Quote'
+                        : 'Pedir Presupuesto'}
+                    </span>
                     <ArrowRight className="w-4 h-4" />
                   </button>
                 </div>

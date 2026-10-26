@@ -36,7 +36,7 @@ export default function App() {
   return (
     <div className="relative min-h-screen text-slate-100 flex flex-col font-sans selection:bg-cyan-500/30 selection:text-cyan-200 overflow-x-hidden">
       {/* Cinematic World Background with Atmospheric Mediterranean Air & Motion */}
-      <CinematicWorldBackground />
+      <CinematicWorldBackground lang={lang} />
 
       {/* Top Fixed Header with Generous Breathing Room */}
       <Navbar
@@ -99,7 +99,7 @@ export default function App() {
         <a
           href={`tel:${BUSINESS_INFO.phonePrimary}`}
           className="w-13 h-13 rounded-full bg-slate-900/90 border border-cyan-400/50 text-cyan-400 flex items-center justify-center shadow-2xl backdrop-blur-md active:scale-95 transition-transform"
-          aria-label="Llamar a BCN Clima"
+          aria-label={lang === 'ca' ? 'Trucar a BCN Clima' : lang === 'en' ? 'Call BCN Clima' : 'Llamar a BCN Clima'}
         >
           <Phone className="w-5 h-5" />
         </a>
@@ -109,7 +109,7 @@ export default function App() {
           target="_blank"
           rel="noopener noreferrer"
           className="w-13 h-13 rounded-full bg-emerald-500 text-slate-950 flex items-center justify-center shadow-2xl shadow-emerald-500/40 active:scale-95 transition-transform"
-          aria-label="Contactar por WhatsApp"
+          aria-label={lang === 'ca' ? 'Contactar per WhatsApp' : lang === 'en' ? 'Contact via WhatsApp' : 'Contactar por WhatsApp'}
         >
           <MessageCircle className="w-6 h-6" />
         </a>

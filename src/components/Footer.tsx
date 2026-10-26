@@ -103,7 +103,13 @@ export const Footer: React.FC<Props> = ({ lang }) => {
                   rel="noopener noreferrer"
                   className="text-cyan-400 hover:underline flex items-center gap-1"
                 >
-                  <span>Google Maps Oficial</span>
+                  <span>
+                    {lang === 'ca'
+                      ? 'Fitxa Oficial Google Maps'
+                      : lang === 'en'
+                      ? 'Official Google Maps'
+                      : 'Ficha Oficial Google Maps'}
+                  </span>
                   <ExternalLink className="w-3 h-3" />
                 </a>
               </li>
@@ -137,7 +143,7 @@ export const Footer: React.FC<Props> = ({ lang }) => {
         <button
           onClick={scrollToTop}
           className="p-2 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-300 hover:text-white transition-colors flex items-center gap-1 text-xs cursor-pointer"
-          aria-label="Volver arriba"
+          aria-label={lang === 'ca' ? 'Tornar a dalt' : lang === 'en' ? 'Back to top' : 'Volver arriba'}
         >
           <span>Top</span>
           <ArrowUp className="w-3 h-3" />

@@ -35,11 +35,19 @@ export const ContactSection: React.FC<Props> = ({
 
   useEffect(() => {
     if (prefilledCalculation) {
+      const titleTag = lang === 'ca' ? '[Estudi Tèrmic]' : lang === 'en' ? '[Thermal Study]' : '[Estudio Térmico]';
+      const surfLabel = lang === 'ca' ? 'Superfície' : lang === 'en' ? 'Surface' : 'Superficie';
+      const propLabel = lang === 'ca' ? 'Immoble' : lang === 'en' ? 'Property' : 'Inmueble';
+      const powLabel = lang === 'ca' ? 'Potència estimada' : lang === 'en' ? 'Estimated power' : 'Potencia estimada';
+      const eqLabel = lang === 'ca' ? 'Equip suggerit' : lang === 'en' ? 'Suggested system' : 'Equipo sugerido';
+      const savLabel = lang === 'ca' ? 'Estalvi' : lang === 'en' ? 'Savings' : 'Ahorro';
+      const yr = lang === 'ca' ? 'any' : lang === 'en' ? 'year' : 'año';
+
       setMessage(
-        `[Estudio Térmico]\nSuperficie: ${prefilledCalculation.surfaceM2} m²\nInmueble: ${prefilledCalculation.propertyType}\nPotencia estimada: ${prefilledCalculation.requiredFrigorias} frig/h (${prefilledCalculation.requiredKw} kW)\nEquipo sugerido: ${prefilledCalculation.recommendedSystem}\nAhorro: ~${prefilledCalculation.estimatedAnnualSavings} €/año`
+        `${titleTag}\n${surfLabel}: ${prefilledCalculation.surfaceM2} m²\n${propLabel}: ${prefilledCalculation.propertyType}\n${powLabel}: ${prefilledCalculation.requiredFrigorias} fg/h (${prefilledCalculation.requiredKw} kW)\n${eqLabel}: ${prefilledCalculation.recommendedSystem}\n${savLabel}: ~${prefilledCalculation.estimatedAnnualSavings} €/${yr}`
       );
     }
-  }, [prefilledCalculation]);
+  }, [prefilledCalculation, lang]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -53,7 +61,14 @@ export const ContactSection: React.FC<Props> = ({
   };
 
   const generateWhatsAppUrl = () => {
-    const text = `Hola BCN Clima,\nMe llamo ${fullName || 'Cliente'}.\nServicio: ${service}\nPoblación: ${town}\nTeléfono: ${phone}\nMensaje: ${message || 'Solicito presupuesto y visita técnica gratuita'}`;
+    const greeting = lang === 'ca' ? 'Hola BCN Clima,\nEm dic ' : lang === 'en' ? 'Hello BCN Clima,\nMy name is ' : 'Hola BCN Clima,\nMe llamo ';
+    const sLabel = lang === 'ca' ? 'Servei: ' : lang === 'en' ? 'Service: ' : 'Servicio: ';
+    const tLabel = lang === 'ca' ? 'Població: ' : lang === 'en' ? 'Town: ' : 'Población: ';
+    const pLabel = lang === 'ca' ? 'Telèfon: ' : lang === 'en' ? 'Phone: ' : 'Teléfono: ';
+    const mLabel = lang === 'ca' ? 'Missatge: ' : lang === 'en' ? 'Message: ' : 'Mensaje: ';
+    const defMsg = lang === 'ca' ? 'Sol·licito pressupost i visita tècnica gratuïta' : lang === 'en' ? 'I request a free technical assessment and quote' : 'Solicito presupuesto y visita técnica gratuita';
+
+    const text = `${greeting}${fullName || (lang === 'en' ? 'Customer' : 'Client')}.\n${sLabel}${service}\n${tLabel}${town}\n${pLabel}${phone}\n${mLabel}${message || defMsg}`;
     return `https://wa.me/${BUSINESS_INFO.whatsapp}?text=${encodeURIComponent(text)}`;
   };
 
@@ -77,7 +92,7 @@ export const ContactSection: React.FC<Props> = ({
           <div className="lg:col-span-5 space-y-4">
             <div className="p-6 rounded-2xl bg-slate-900/60 border border-slate-800 space-y-4">
               <h3 className="text-lg font-bold text-white">
-                Atención Directa
+                {lang === 'ca' ? 'Atenció Directa' : lang === 'en' ? 'Direct Contact' : 'Atención Directa'}
               </h3>
 
               {/* Call Direct */}
@@ -89,7 +104,9 @@ export const ContactSection: React.FC<Props> = ({
                   <Phone className="w-4 h-4 text-cyan-400" />
                 </div>
                 <div>
-                  <span className="text-[11px] text-slate-400 block">Llamar Ahora</span>
+                  <span className="text-[11px] text-slate-400 block">
+                    {lang === 'ca' ? 'Truca Ara' : lang === 'en' ? 'Call Now' : 'Llamar Ahora'}
+                  </span>
                   <span className="text-sm font-bold text-white font-mono">
                     {BUSINESS_INFO.phonePrimary}
                   </span>
@@ -120,7 +137,9 @@ export const ContactSection: React.FC<Props> = ({
                   <MapPin className="w-4 h-4 text-cyan-400" />
                 </div>
                 <div>
-                  <span className="text-[11px] text-slate-400 block">Oficina Central</span>
+                  <span className="text-[11px] text-slate-400 block">
+                    {lang === 'ca' ? 'Oficina Central' : lang === 'en' ? 'Main Office' : 'Oficina Central'}
+                  </span>
                   <span className="text-xs font-semibold text-white">
                     {BUSINESS_INFO.street}, {BUSINESS_INFO.postalCode} {BUSINESS_INFO.city}
                   </span>
@@ -131,11 +150,23 @@ export const ContactSection: React.FC<Props> = ({
             <div className="p-4 rounded-xl bg-slate-900/40 border border-slate-800 text-xs text-slate-300 space-y-2">
               <div className="flex items-center gap-2">
                 <CheckCircle2 className="w-4 h-4 text-cyan-400 shrink-0" />
-                <span>Presupuesto gratuito sin compromiso de contratación.</span>
+                <span>
+                  {lang === 'ca'
+                    ? 'Pressupost gratuït sense cap compromís de contractació.'
+                    : lang === 'en'
+                    ? 'Free no-obligation quote and technical guidance.'
+                    : 'Presupuesto gratuito sin compromiso de contratación.'}
+                </span>
               </div>
               <div className="flex items-center gap-2">
                 <ShieldCheck className="w-4 h-4 text-cyan-400 shrink-0" />
-                <span>Instaladores oficiales homologados RITE.</span>
+                <span>
+                  {lang === 'ca'
+                    ? 'Instal·ladors oficials homologats RITE.'
+                    : lang === 'en'
+                    ? 'Certified official RITE contractors.'
+                    : 'Instaladores oficiales homologados RITE.'}
+                </span>
               </div>
             </div>
           </div>
@@ -155,7 +186,10 @@ export const ContactSection: React.FC<Props> = ({
                 </p>
 
                 <div className="p-3 rounded-xl bg-slate-950 border border-slate-800 inline-block text-left text-xs">
-                  <div className="font-mono text-slate-400">Referencia: <strong className="text-cyan-400">{submittedRef}</strong></div>
+                  <div className="font-mono text-slate-400">
+                    {lang === 'ca' ? 'Referència: ' : lang === 'en' ? 'Reference: ' : 'Referencia: '}
+                    <strong className="text-cyan-400">{submittedRef}</strong>
+                  </div>
                   <div className="text-slate-300 mt-1">
                     {fullName} • {town} • {service}
                   </div>
@@ -170,16 +204,16 @@ export const ContactSection: React.FC<Props> = ({
                       setEmail('');
                       setMessage('');
                     }}
-                    className="px-4 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs font-semibold text-slate-200"
+                    className="px-4 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs font-semibold text-slate-200 cursor-pointer"
                   >
-                    Nueva consulta
+                    {lang === 'ca' ? 'Nova consulta' : lang === 'en' ? 'New inquiry' : 'Nueva consulta'}
                   </button>
 
                   <a
                     href={generateWhatsAppUrl()}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="px-4 py-2 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-xs font-bold text-white flex items-center gap-1.5"
+                    className="px-4 py-2 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-xs font-bold text-white flex items-center gap-1.5 cursor-pointer"
                   >
                     <MessageCircle className="w-3.5 h-3.5" />
                     <span>WhatsApp</span>
@@ -196,7 +230,7 @@ export const ContactSection: React.FC<Props> = ({
                     <input
                       type="text"
                       required
-                      placeholder="Tu nombre"
+                      placeholder={lang === 'ca' ? 'El teu nom' : lang === 'en' ? 'Your full name' : 'Tu nombre'}
                       value={fullName}
                       onChange={(e) => setFullName(e.target.value)}
                       className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-slate-100 placeholder-slate-500 focus:outline-none focus:border-cyan-500"
@@ -295,7 +329,13 @@ export const ContactSection: React.FC<Props> = ({
                     rows={3}
                     value={message}
                     onChange={(e) => setMessage(e.target.value)}
-                    placeholder="Metros aproximados, número de habitaciones, vivienda habitual..."
+                    placeholder={
+                      lang === 'ca'
+                        ? 'Metres aproximats, nombre d’habitacions, habitatge habitual...'
+                        : lang === 'en'
+                        ? 'Approximate area in m², rooms, property type...'
+                        : 'Metros aproximados, número de habitaciones, vivienda habitual...'
+                    }
                     className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-slate-100 placeholder-slate-500 focus:outline-none focus:border-cyan-500 resize-none"
                   />
                 </div>

@@ -120,7 +120,7 @@ export const Navbar: React.FC<Props> = ({ lang, onLanguageChange, onOpenContactM
             <a
               href={`tel:${BUSINESS_INFO.phonePrimary}`}
               className="p-1.5 text-cyan-400"
-              aria-label="Llamar"
+              aria-label={lang === 'ca' ? 'Trucar' : lang === 'en' ? 'Call' : 'Llamar'}
             >
               <Phone className="w-4 h-4" />
             </a>
@@ -128,7 +128,7 @@ export const Navbar: React.FC<Props> = ({ lang, onLanguageChange, onOpenContactM
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               className="p-1.5 text-slate-200"
-              aria-label="Menú"
+              aria-label={lang === 'en' ? 'Menu' : 'Menú'}
             >
               {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             </button>

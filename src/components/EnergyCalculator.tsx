@@ -36,15 +36,21 @@ export const EnergyCalculator: React.FC<Props> = ({ lang, onSelectResult }) => {
 
   let recommendedSystem = '';
   if (surface <= 45) {
-    recommendedSystem = lang === 'en'
+    recommendedSystem = lang === 'ca'
+      ? 'Mono-Split 1x1 Inverter Ultra Silenciós (Daikin o Mitsubishi Electric A+++)'
+      : lang === 'en'
       ? 'Ultra-quiet 1x1 Inverter Split (Daikin / Mitsubishi A+++)'
       : 'Mono-Split 1x1 Inverter Ultra Silencioso (Daikin o Mitsubishi Electric A+++)';
   } else if (surface <= 95) {
-    recommendedSystem = lang === 'en'
+    recommendedSystem = lang === 'ca'
+      ? 'Multi-Split 2x1 / 3x1 o Climatització per Conductes Airzone'
+      : lang === 'en'
       ? 'Multi-Split 2x1 / 3x1 or Concealed Ducted AC with Airzone'
       : 'Multi-Split 2x1 / 3x1 o Climatización por Conductos Airzone';
   } else {
-    recommendedSystem = lang === 'en'
+    recommendedSystem = lang === 'ca'
+      ? 'Bomba de Calor Aerotèrmia Completa (Calefacció, Fred i ACS) A+++'
+      : lang === 'en'
       ? 'Complete Aerothermal Heat Pump System (Heating, Cooling & DHW) A+++'
       : 'Bomba de Calor Aerotermia Completa (Calefacción, Frío y ACS) A+++';
   }
@@ -175,7 +181,11 @@ export const EnergyCalculator: React.FC<Props> = ({ lang, onSelectResult }) => {
                         : 'bg-slate-950 border-slate-800 text-slate-400 hover:text-white'
                     }`}
                   >
-                    {ori === 'south' ? 'Sur' : ori === 'mixed' ? 'Mixta' : 'Norte'}
+                    {ori === 'south'
+                      ? (lang === 'ca' ? 'Sud' : lang === 'en' ? 'South' : 'Sur')
+                      : ori === 'mixed'
+                      ? (lang === 'ca' ? 'Mixta' : lang === 'en' ? 'Mixed' : 'Mixta')
+                      : (lang === 'ca' ? 'Nord' : lang === 'en' ? 'North' : 'Norte')}
                   </button>
                 ))}
               </div>
@@ -183,7 +193,13 @@ export const EnergyCalculator: React.FC<Props> = ({ lang, onSelectResult }) => {
 
             <div className="pt-3 border-t border-slate-800 flex items-center gap-2 text-xs text-slate-400">
               <ShieldCheck className="w-4 h-4 text-cyan-400 shrink-0" />
-              <span>Cálculo estimativo para la zona climática de Terrassa y Vallès.</span>
+              <span>
+                {lang === 'ca'
+                  ? 'Càlcul estimatiu per a la zona climàtica de Terrassa i el Vallès.'
+                  : lang === 'en'
+                  ? 'Estimated thermal calculation for Terrassa & Vallès climate zone.'
+                  : 'Cálculo estimativo para la zona climática de Terrassa y Vallès.'}
+              </span>
             </div>
           </div>
 
@@ -238,7 +254,7 @@ export const EnergyCalculator: React.FC<Props> = ({ lang, onSelectResult }) => {
                   <span>{t.annualSavings}</span>
                 </div>
                 <span className="font-mono font-bold text-emerald-400">
-                  ~{estimatedSavings} €/año
+                  ~{estimatedSavings} {lang === 'ca' ? '€/any' : lang === 'en' ? '€/year' : '€/año'}
                 </span>
               </div>
 

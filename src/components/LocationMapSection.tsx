@@ -11,7 +11,7 @@ export const LocationMapSection: React.FC<Props> = ({ lang }) => {
   const t = TRANSLATIONS[lang].location;
 
   const nearbyTimes = [
-    { city: 'Terrassa Centre', time: '3-5 min' },
+    { city: lang === 'en' ? 'Terrassa Center' : lang === 'ca' ? 'Terrassa Centre' : 'Terrassa Centro', time: '3-5 min' },
     { city: 'Sabadell', time: '12-14 min' },
     { city: 'Rubí', time: '14-16 min' },
     { city: 'Sant Cugat', time: '18-20 min' },
@@ -116,7 +116,7 @@ export const LocationMapSection: React.FC<Props> = ({ lang }) => {
           {/* Map Column */}
           <div className="lg:col-span-7 bg-slate-900 border border-slate-800 rounded-2xl p-2.5 min-h-[380px] overflow-hidden">
             <iframe
-              title="BCN Clima Ubicación en Terrassa"
+              title={lang === 'ca' ? 'BCN Clima Ubicació a Terrassa' : lang === 'en' ? 'BCN Clima Location in Terrassa' : 'BCN Clima Ubicación en Terrassa'}
               src={`https://www.openstreetmap.org/export/embed.html?bbox=2.0002171%2C41.5478256%2C2.0202171%2C41.5618256&layer=mapnik&marker=41.5548256%2C2.0102171`}
               className="w-full h-full min-h-[360px] rounded-xl border-0"
               loading="lazy"

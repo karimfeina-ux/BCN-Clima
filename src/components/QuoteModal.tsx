@@ -45,7 +45,7 @@ export const QuoteModal: React.FC<Props> = ({
         <button
           onClick={onClose}
           className="absolute top-4 right-4 p-2 rounded-lg bg-slate-900 hover:bg-slate-800 text-slate-400 hover:text-white"
-          aria-label="Cerrar modal"
+          aria-label={lang === 'ca' ? 'Tancar modal' : lang === 'en' ? 'Close modal' : 'Cerrar modal'}
         >
           <X className="w-5 h-5" />
         </button>
@@ -56,10 +56,16 @@ export const QuoteModal: React.FC<Props> = ({
               <CheckCircle2 className="w-6 h-6" />
             </div>
             <h3 className="text-lg font-bold text-white">
-              {lang === 'en' ? 'Quote Request Received' : '¡Presupuesto Solicitado!'}
+              {lang === 'ca'
+                ? 'Pressupost Sol·licitat!'
+                : lang === 'en'
+                ? 'Quote Request Received'
+                : '¡Presupuesto Solicitado!'}
             </h3>
             <p className="text-xs text-slate-300">
-              {lang === 'en'
+              {lang === 'ca'
+                ? 'Ens posarem en contacte amb tu avui mateix per coordinar l’estudi.'
+                : lang === 'en'
                 ? 'We will contact you shortly to coordinate your assessment.'
                 : 'Nos pondremos en contacto contigo hoy mismo para coordinar el estudio.'}
             </p>
@@ -68,7 +74,7 @@ export const QuoteModal: React.FC<Props> = ({
                 href={getWhatsAppDirect()}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs flex items-center justify-center gap-1.5"
+                className="w-full py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs flex items-center justify-center gap-1.5 cursor-pointer"
               >
                 <MessageCircle className="w-4 h-4" />
                 <span>WhatsApp</span>
@@ -78,9 +84,9 @@ export const QuoteModal: React.FC<Props> = ({
                   setSubmitted(false);
                   onClose();
                 }}
-                className="w-full py-2.5 rounded-xl bg-slate-900 text-slate-300 hover:text-white text-xs font-semibold"
+                className="w-full py-2.5 rounded-xl bg-slate-900 text-slate-300 hover:text-white text-xs font-semibold cursor-pointer"
               >
-                {lang === 'en' ? 'Close' : 'Cerrar'}
+                {lang === 'ca' ? 'Tancar' : lang === 'en' ? 'Close' : 'Cerrar'}
               </button>
             </div>
           </div>
@@ -88,13 +94,25 @@ export const QuoteModal: React.FC<Props> = ({
           <div>
             <div className="flex items-center gap-1.5 text-cyan-400 text-xs font-semibold mb-1">
               <ShieldCheck className="w-4 h-4" />
-              <span>{lang === 'en' ? 'Official RITE Contractor' : 'Instalador Oficial RITE'}</span>
+              <span>
+                {lang === 'ca'
+                  ? 'Instal·lador Oficial RITE'
+                  : lang === 'en'
+                  ? 'Official RITE Contractor'
+                  : 'Instalador Oficial RITE'}
+              </span>
             </div>
             <h3 className="text-xl font-bold text-white mb-1">
-              {lang === 'en' ? 'Request a Free Quote' : 'Pedir Presupuesto'}
+              {lang === 'ca'
+                ? 'Demanar Pressupost'
+                : lang === 'en'
+                ? 'Request a Free Quote'
+                : 'Pedir Presupuesto'}
             </h3>
             <p className="text-xs text-slate-400 mb-5">
-              {lang === 'en'
+              {lang === 'ca'
+                ? 'Resposta ràpida en menys de 2 hores laborables.'
+                : lang === 'en'
                 ? 'Direct response within 2 business hours.'
                 : 'Respuesta rápida en menos de 2 horas laborables.'}
             </p>
@@ -102,12 +120,12 @@ export const QuoteModal: React.FC<Props> = ({
             <form onSubmit={handleSubmit} className="space-y-3">
               <div>
                 <label className="text-xs font-semibold text-slate-300 block mb-1">
-                  {lang === 'en' ? 'Full Name *' : 'Nombre *'}
+                  {lang === 'ca' ? 'Nom complet *' : lang === 'en' ? 'Full Name *' : 'Nombre *'}
                 </label>
                 <input
                   type="text"
                   required
-                  placeholder="Tu nombre"
+                  placeholder={lang === 'ca' ? 'El teu nom' : lang === 'en' ? 'Your name' : 'Tu nombre'}
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2 text-xs text-slate-100 placeholder-slate-600 focus:outline-none focus:border-cyan-500"
@@ -117,7 +135,7 @@ export const QuoteModal: React.FC<Props> = ({
               <div className="grid grid-cols-2 gap-2.5">
                 <div>
                   <label className="text-xs font-semibold text-slate-300 block mb-1">
-                    {lang === 'en' ? 'Phone *' : 'Teléfono *'}
+                    {lang === 'ca' ? 'Telèfon *' : lang === 'en' ? 'Phone *' : 'Teléfono *'}
                   </label>
                   <input
                     type="tel"
@@ -131,7 +149,7 @@ export const QuoteModal: React.FC<Props> = ({
 
                 <div>
                   <label className="text-xs font-semibold text-slate-300 block mb-1">
-                    {lang === 'en' ? 'City / Town *' : 'Población *'}
+                    {lang === 'ca' ? 'Població *' : lang === 'en' ? 'City / Town *' : 'Población *'}
                   </label>
                   <input
                     type="text"
@@ -145,7 +163,7 @@ export const QuoteModal: React.FC<Props> = ({
 
               <div>
                 <label className="text-xs font-semibold text-slate-300 block mb-1">
-                  {lang === 'en' ? 'Service' : 'Servicio'}
+                  {lang === 'ca' ? 'Servei' : lang === 'en' ? 'Service' : 'Servicio'}
                 </label>
                 <select
                   value={service}
@@ -182,13 +200,19 @@ export const QuoteModal: React.FC<Props> = ({
 
               <div>
                 <label className="text-xs font-semibold text-slate-300 block mb-1">
-                  {lang === 'en' ? 'Notes (optional)' : 'Notas (opcional)'}
+                  {lang === 'ca' ? 'Notes (opcional)' : lang === 'en' ? 'Notes (optional)' : 'Notas (opcional)'}
                 </label>
                 <textarea
                   rows={2}
                   value={notes}
                   onChange={(e) => setNotes(e.target.value)}
-                  placeholder="Metros aproximados, estancias..."
+                  placeholder={
+                    lang === 'ca'
+                      ? 'Metres aproximats, estances...'
+                      : lang === 'en'
+                      ? 'Approximate area, rooms...'
+                      : 'Metros aproximados, estancias...'
+                  }
                   className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2 text-xs text-slate-100 placeholder-slate-600 focus:outline-none focus:border-cyan-500 resize-none"
                 />
               </div>
@@ -198,7 +222,13 @@ export const QuoteModal: React.FC<Props> = ({
                 className="w-full py-3 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-xs uppercase tracking-wider transition-colors flex items-center justify-center gap-1.5 cursor-pointer shadow-md"
               >
                 <Send className="w-3.5 h-3.5" />
-                <span>{lang === 'en' ? 'Submit Request' : 'Enviar Solicitud'}</span>
+                <span>
+                  {lang === 'ca'
+                    ? 'Enviar Sol·licitud'
+                    : lang === 'en'
+                    ? 'Submit Request'
+                    : 'Enviar Solicitud'}
+                </span>
               </button>
             </form>
 

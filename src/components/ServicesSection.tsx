@@ -91,7 +91,9 @@ export const ServicesSection: React.FC<Props> = ({ lang, onSelectService }) => {
                   onClick={() => onSelectService(service.title)}
                   className="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-cyan-500 hover:text-slate-950 text-slate-200 text-xs font-bold transition-colors cursor-pointer"
                 >
-                  <span>Presupuesto</span>
+                  <span>
+                    {lang === 'ca' ? 'Pressupost' : lang === 'en' ? 'Quote' : 'Presupuesto'}
+                  </span>
                 </button>
               </div>
             </div>
@@ -110,7 +112,7 @@ export const ServicesSection: React.FC<Props> = ({ lang, onSelectService }) => {
             <button
               onClick={() => setSelectedService(null)}
               className="absolute top-4 right-4 p-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white"
-              aria-label="Cerrar"
+              aria-label={lang === 'ca' ? 'Tancar' : lang === 'en' ? 'Close' : 'Cerrar'}
             >
               <X className="w-5 h-5" />
             </button>
@@ -135,7 +137,11 @@ export const ServicesSection: React.FC<Props> = ({ lang, onSelectService }) => {
 
             <div className="mb-5">
               <h4 className="font-mono text-xs font-bold uppercase text-slate-400 mb-2.5">
-                Especificaciones Técnicas:
+                {lang === 'ca'
+                  ? 'Especificacions Tècniques:'
+                  : lang === 'en'
+                  ? 'Technical Specifications:'
+                  : 'Especificaciones Técnicas:'}
               </h4>
               <div className="grid grid-cols-2 gap-2">
                 {selectedService.specs.map((spec, i) => (
@@ -153,9 +159,15 @@ export const ServicesSection: React.FC<Props> = ({ lang, onSelectService }) => {
                 setSelectedService(null);
                 onSelectService(s);
               }}
-              className="w-full py-3 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-xs uppercase tracking-wider transition-colors flex items-center justify-center gap-2 cursor-pointer"
+              className="w-full py-3 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-xs uppercase tracking-wider transition-colors flex items-center justify-center gap-2 cursor-pointer shadow-md"
             >
-              <span>Pedir Presupuesto</span>
+              <span>
+                {lang === 'ca'
+                  ? 'Demanar Pressupost'
+                  : lang === 'en'
+                  ? 'Request a Quote'
+                  : 'Pedir Presupuesto'}
+              </span>
               <ArrowRight className="w-4 h-4" />
             </button>
           </div>
