@@ -31,7 +31,21 @@ export const QuoteModal: React.FC<Props> = ({
   };
 
   const getWhatsAppDirect = () => {
-    const text = `Hola BCN Clima,\nSolicitud de presupuesto:\n- Servicio: ${service}\n- Nombre: ${name || 'Cliente'}\n- Población: ${town}\n- Teléfono: ${phone}\n- Notas: ${notes || 'Consulta'}`;
+    const greeting =
+      lang === 'ca'
+        ? 'Hola BCN Clima,\nSol·licitud de pressupost:\n'
+        : lang === 'en'
+        ? 'Hello BCN Clima,\nQuote request:\n'
+        : 'Hola BCN Clima,\nSolicitud de presupuesto:\n';
+    const sLabel = lang === 'ca' ? '- Servei: ' : lang === 'en' ? '- Service: ' : '- Servicio: ';
+    const nLabel = lang === 'ca' ? '- Nom: ' : lang === 'en' ? '- Name: ' : '- Nombre: ';
+    const tLabel = lang === 'ca' ? '- Població: ' : lang === 'en' ? '- City / Town: ' : '- Población: ';
+    const pLabel = lang === 'ca' ? '- Telèfon: ' : lang === 'en' ? '- Phone: ' : '- Teléfono: ';
+    const mLabel = lang === 'ca' ? '- Notes: ' : lang === 'en' ? '- Notes: ' : '- Notas: ';
+    const defaultName = lang === 'ca' ? 'Client' : lang === 'en' ? 'Customer' : 'Cliente';
+    const defaultNotes = lang === 'ca' ? 'Informació de preus' : lang === 'en' ? 'Pricing inquiry' : 'Consulta';
+
+    const text = `${greeting}${sLabel}${service}\n${nLabel}${name || defaultName}\n${tLabel}${town}\n${pLabel}${phone}\n${mLabel}${notes || defaultNotes}`;
     return `https://wa.me/${BUSINESS_INFO.whatsapp}?text=${encodeURIComponent(text)}`;
   };
 

@@ -12,6 +12,8 @@ import { FaqSection } from './components/FaqSection';
 import { ContactSection } from './components/ContactSection';
 import { Footer } from './components/Footer';
 import { QuoteModal } from './components/QuoteModal';
+import { LegalModal } from './components/LegalModal';
+import { CookieBanner } from './components/CookieBanner';
 import { CinematicWorldBackground } from './components/CinematicWorldBackground';
 import { Language, CalculationResult } from './types';
 import { BUSINESS_INFO } from './data/translations';
@@ -20,8 +22,15 @@ import { MessageCircle, Phone } from 'lucide-react';
 export default function App() {
   const [lang, setLang] = useState<Language>('ca');
   const [isQuoteModalOpen, setIsQuoteModalOpen] = useState(false);
+  const [isLegalModalOpen, setIsLegalModalOpen] = useState(false);
+  const [legalTab, setLegalTab] = useState<'privacy' | 'legal' | 'cookies'>('privacy');
   const [selectedService, setSelectedService] = useState<string>('Aerotèrmia & Terra Radiant');
   const [calculationResult, setCalculationResult] = useState<CalculationResult | null>(null);
+
+  const handleOpenLegal = (tab: 'privacy' | 'legal' | 'cookies') => {
+    setLegalTab(tab);
+    setIsLegalModalOpen(true);
+  };
 
   const handleSelectService = (serviceName: string) => {
     setSelectedService(serviceName);
@@ -83,15 +92,29 @@ export default function App() {
 
       {/* Footer */}
       <div className="relative z-10">
-        <Footer lang={lang} />
+        <Footer lang={lang} onOpenLegal={handleOpenLegal} />
       </div>
 
-      {/* Modal Drawer */}
+      {/* Quote Modal Drawer */}
       <QuoteModal
         isOpen={isQuoteModalOpen}
         onClose={() => setIsQuoteModalOpen(false)}
         lang={lang}
         initialService={selectedService}
+      />
+
+      {/* Legal & Privacy Policy Modal */}
+      <LegalModal
+        isOpen={isLegalModalOpen}
+        onClose={() => setIsLegalModalOpen(false)}
+        lang={lang}
+        initialTab={legalTab}
+      />
+
+      {/* Cookie Consent Banner */}
+      <CookieBanner
+        lang={lang}
+        onOpenLegal={handleOpenLegal}
       />
 
       {/* Mobile Floating Quick Action Bar */}
@@ -105,7 +128,13 @@ export default function App() {
         </a>
 
         <a
-          href={`https://wa.me/${BUSINESS_INFO.whatsapp}?text=Hola%20BCN%20Clima`}
+          href={`https://wa.me/${BUSINESS_INFO.whatsapp}?text=${encodeURIComponent(
+            lang === 'ca'
+              ? 'Hola BCN Clima, sol·licito informació i pressupost'
+              : lang === 'en'
+              ? 'Hello BCN Clima, I request information and a quote'
+              : 'Hola BCN Clima, solicito información y presupuesto'
+          )}`}
           target="_blank"
           rel="noopener noreferrer"
           className="w-13 h-13 rounded-full bg-emerald-500 text-slate-950 flex items-center justify-center shadow-2xl shadow-emerald-500/40 active:scale-95 transition-transform"

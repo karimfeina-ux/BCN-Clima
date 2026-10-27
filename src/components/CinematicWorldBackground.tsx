@@ -125,16 +125,16 @@ export const CinematicWorldBackground: React.FC<Props> = ({ lang = 'ca' }) => {
       pulseSpeed: number;
     }[] = [];
 
-    const numParticles = 40;
+    const numParticles = 18;
     for (let i = 0; i < numParticles; i++) {
       particles.push({
         x: Math.random() * width,
         y: Math.random() * height,
-        radius: 1.5 + Math.random() * 3,
-        vx: (Math.random() - 0.5) * 0.4,
-        vy: -0.3 - Math.random() * 0.5,
-        alpha: 0.15 + Math.random() * 0.35,
-        pulseSpeed: 0.01 + Math.random() * 0.02
+        radius: 1.2 + Math.random() * 2,
+        vx: (Math.random() - 0.5) * 0.25,
+        vy: -0.15 - Math.random() * 0.25,
+        alpha: 0.12 + Math.random() * 0.2,
+        pulseSpeed: 0.006 + Math.random() * 0.01
       });
     }
 
@@ -142,13 +142,13 @@ export const CinematicWorldBackground: React.FC<Props> = ({ lang = 'ca' }) => {
     let time = 0;
 
     const render = () => {
-      time += 0.02;
+      time += 0.012;
       ctx.clearRect(0, 0, width, height);
 
-      // Draw subtle luminous ambient motes (clean air flow)
+      // Draw subtle luminous ambient motes (gentle clean air flow)
       for (let i = 0; i < numParticles; i++) {
         const p = particles[i];
-        p.x += p.vx + Math.sin(time + i) * 0.2;
+        p.x += p.vx + Math.sin(time + i) * 0.15;
         p.y += p.vy;
 
         // Wrap around
@@ -159,7 +159,7 @@ export const CinematicWorldBackground: React.FC<Props> = ({ lang = 'ca' }) => {
         if (p.x < -10) p.x = width + 10;
         if (p.x > width + 10) p.x = -10;
 
-        const currentAlpha = p.alpha + Math.sin(time * 2 + i) * 0.1;
+        const currentAlpha = p.alpha + Math.sin(time * 1.5 + i) * 0.05;
 
         ctx.beginPath();
         const grad = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.radius * 2);
@@ -197,8 +197,8 @@ export const CinematicWorldBackground: React.FC<Props> = ({ lang = 'ca' }) => {
 
         const delta = floatIndex - i;
         // Cinematic camera zoom & slow vertical drift following scroll
-        const scale = 1.08 + delta * 0.04;
-        const translateY = delta * -35;
+        const scale = 1.05 + delta * 0.03;
+        const translateY = delta * -25;
 
         return (
           <div
@@ -212,60 +212,59 @@ export const CinematicWorldBackground: React.FC<Props> = ({ lang = 'ca' }) => {
             <img
               src={scene.image}
               alt={scene.title}
-              className="w-full h-full object-cover filter brightness-[0.7] contrast-[1.05] saturate-[1.1]"
+              className="w-full h-full object-cover filter brightness-[0.6] contrast-[1.02] saturate-[1.05]"
               loading={i <= 1 ? 'eager' : 'lazy'}
             />
           </div>
         );
       })}
 
-      {/* 2. Soft Daylight & Twilight Atmospheric Gradient (NOT pitch black!) */}
-      {/* Deep sky azure to Mediterranean twilight gradient with rich blue tones */}
-      <div className="absolute inset-0 bg-gradient-to-b from-[#091120]/75 via-[#0A1628]/65 to-[#080E1C]/80 backdrop-blur-[1px]" />
+      {/* 2. Soft Daylight & Mediterranean Twilight Atmospheric Gradient */}
+      <div className="absolute inset-0 bg-gradient-to-b from-[#080E1C]/85 via-[#0A1628]/75 to-[#060A14]/90 backdrop-blur-[1px]" />
       
-      {/* Luminous Sun & Sky Highlights */}
-      <div className="absolute -top-32 -right-32 w-[600px] h-[600px] bg-sky-400/20 rounded-full blur-[140px]" />
-      <div className="absolute top-1/2 -left-32 w-[550px] h-[550px] bg-cyan-500/15 rounded-full blur-[160px]" />
-      <div className="absolute bottom-0 right-1/4 w-[700px] h-[500px] bg-blue-600/15 rounded-full blur-[160px]" />
+      {/* Subtle Luminous Highlights - calmed down */}
+      <div className="absolute -top-32 -right-32 w-[500px] h-[500px] bg-sky-500/10 rounded-full blur-[160px]" />
+      <div className="absolute top-1/2 -left-32 w-[450px] h-[450px] bg-cyan-600/08 rounded-full blur-[160px]" />
+      <div className="absolute bottom-0 right-1/4 w-[500px] h-[400px] bg-blue-700/08 rounded-full blur-[160px]" />
 
       {/* 3. Subtle floating particles canvas */}
       <canvas
         ref={canvasRef}
-        className="absolute inset-0 pointer-events-none opacity-60"
+        className="absolute inset-0 pointer-events-none opacity-40"
       />
 
-      {/* 4. Cinematic Scene HUD Badge at Bottom-Left */}
-      <div className="hidden md:flex absolute bottom-8 left-8 z-20 items-center gap-3 px-4 py-2.5 rounded-2xl bg-slate-950/70 border border-white/10 backdrop-blur-xl text-xs font-mono text-slate-200 pointer-events-auto shadow-2xl">
+      {/* 4. Elegant, calm Scene Indicator at Bottom-Left */}
+      <div className="hidden md:flex absolute bottom-6 left-8 z-20 items-center gap-3 px-3.5 py-2 rounded-xl bg-slate-950/60 border border-white/08 backdrop-blur-md text-[11px] font-mono text-slate-300 pointer-events-auto">
         <div className="flex items-center gap-2">
           <span
-            className="w-2.5 h-2.5 rounded-full animate-ping"
+            className="w-2 h-2 rounded-full"
             style={{ backgroundColor: scenes[activeIdx]?.accent }}
           />
-          <span className="font-bold uppercase tracking-wider text-white text-[11px]">
+          <span className="font-semibold text-white">
             {scenes[activeIdx]?.title}
           </span>
         </div>
-        <span className="text-slate-600">|</span>
-        <span className="text-slate-300 text-[11px] font-sans">
+        <span className="text-slate-600">·</span>
+        <span className="text-slate-400 font-sans text-[11px]">
           {scenes[activeIdx]?.subtitle}
         </span>
-        <span className="text-slate-600">|</span>
+        <span className="text-slate-600">·</span>
         <span className="text-cyan-400 font-mono text-[10px]">
           {scenes[activeIdx]?.location}
         </span>
       </div>
 
-      {/* 5. Connected Scene Progress Bar on Right */}
-      <div className="hidden lg:flex fixed right-4 top-1/2 -translate-y-1/2 flex-col items-center gap-2 z-20 pointer-events-none">
+      {/* 5. Minimalist Scene Progress Bar on Right */}
+      <div className="hidden lg:flex fixed right-4 top-1/2 -translate-y-1/2 flex-col items-center gap-1.5 z-20 pointer-events-none">
         {scenes.map((s, idx) => {
           const isActive = Math.round(floatIndex) === idx;
           return (
             <div
               key={s.id}
-              className={`w-1.5 rounded-full transition-all duration-300 ${
+              className={`w-1 rounded-full transition-all duration-300 ${
                 isActive
-                  ? 'h-7 bg-cyan-400 shadow-md shadow-cyan-400/50'
-                  : 'h-1.5 bg-white/20'
+                  ? 'h-5 bg-cyan-400/80'
+                  : 'h-1 bg-white/15'
               }`}
             />
           );

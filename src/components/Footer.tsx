@@ -5,9 +5,10 @@ import { ThermometerSnowflake, ShieldCheck, MapPin, Phone, Mail, ArrowUp, Extern
 
 interface Props {
   lang: Language;
+  onOpenLegal?: (tab: 'privacy' | 'legal' | 'cookies') => void;
 }
 
-export const Footer: React.FC<Props> = ({ lang }) => {
+export const Footer: React.FC<Props> = ({ lang, onOpenLegal }) => {
   const t = TRANSLATIONS[lang].footer;
 
   const scrollToTop = () => {
@@ -136,9 +137,36 @@ export const Footer: React.FC<Props> = ({ lang }) => {
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5 flex flex-col sm:flex-row items-center justify-between gap-3 text-[11px]">
-        <p className="text-slate-400 text-center sm:text-left">
-          © {new Date().getFullYear()} {BUSINESS_INFO.name}. {t.rights}
-        </p>
+        <div className="flex flex-wrap items-center justify-center sm:justify-start gap-4 text-slate-400">
+          <p>
+            © {new Date().getFullYear()} {BUSINESS_INFO.name}. {t.rights}
+          </p>
+          {onOpenLegal && (
+            <div className="flex items-center gap-3 text-slate-500">
+              <span>·</span>
+              <button
+                onClick={() => onOpenLegal('privacy')}
+                className="hover:text-cyan-400 transition-colors cursor-pointer"
+              >
+                {t.privacyPolicy}
+              </button>
+              <span>·</span>
+              <button
+                onClick={() => onOpenLegal('legal')}
+                className="hover:text-cyan-400 transition-colors cursor-pointer"
+              >
+                {t.legalNotice}
+              </button>
+              <span>·</span>
+              <button
+                onClick={() => onOpenLegal('cookies')}
+                className="hover:text-cyan-400 transition-colors cursor-pointer"
+              >
+                {t.cookiesPolicy}
+              </button>
+            </div>
+          )}
+        </div>
 
         <button
           onClick={scrollToTop}

@@ -6,11 +6,12 @@ import { Snowflake, Flame, Leaf, RotateCw, Wind, Info, CheckCircle2, HelpCircle 
 
 interface Props {
   lang: Language;
+  isEmbedded?: boolean;
 }
 
 type Mode = 'cooling' | 'heating' | 'eco';
 
-export const ThreeClimateCanvas: React.FC<Props> = ({ lang }) => {
+export const ThreeClimateCanvas: React.FC<Props> = ({ lang, isEmbedded = false }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [mode, setMode] = useState<Mode>('cooling');
   const [isRotating, setIsRotating] = useState<boolean>(true);
@@ -442,12 +443,18 @@ export const ThreeClimateCanvas: React.FC<Props> = ({ lang }) => {
   }, [mode, isRotating]);
 
   return (
-    <div className="relative w-full rounded-3xl overflow-hidden border border-white/20 bg-slate-950/80 backdrop-blur-2xl shadow-2xl flex flex-col">
+    <div
+      className={
+        isEmbedded
+          ? 'relative w-full flex flex-col'
+          : 'relative w-full rounded-3xl overflow-hidden border border-white/20 bg-slate-950/80 backdrop-blur-2xl shadow-2xl flex flex-col'
+      }
+    >
       {/* 1. Crystal Clear Explanatory Header */}
       <div className="p-4 sm:p-5 border-b border-white/10 bg-slate-900/60">
         <div className="flex items-center justify-between gap-3 mb-1.5">
           <div className="flex items-center gap-2">
-            <span className="w-2.5 h-2.5 rounded-full bg-cyan-400 animate-ping" />
+            <span className="w-2 h-2 rounded-full bg-cyan-400" />
             <span className="text-xs font-mono font-bold uppercase tracking-wider text-cyan-300">
               {t.tag}
             </span>
@@ -461,7 +468,13 @@ export const ThreeClimateCanvas: React.FC<Props> = ({ lang }) => {
                   ? 'bg-cyan-500/15 border-cyan-400/40 text-cyan-300'
                   : 'bg-slate-800 border-slate-700 text-slate-400'
               }`}
-              title="Pausar o reanudar rotación 360°"
+              title={
+                lang === 'ca'
+                  ? 'Pausar o reprendre rotació 360°'
+                  : lang === 'en'
+                  ? 'Pause or resume 360° rotation'
+                  : 'Pausar o reanudar rotación 360°'
+              }
             >
               <RotateCw className={`w-3.5 h-3.5 ${isRotating ? 'animate-spin' : ''}`} />
               <span className="hidden sm:inline">360°</span>

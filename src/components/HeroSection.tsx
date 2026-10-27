@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { TRANSLATIONS, BUSINESS_INFO } from '../data/translations';
 import { Language } from '../types';
-import { ShieldCheck, ArrowRight, MessageCircle, Phone, Star, MapPin, CheckCircle2, Zap, Award, Sparkles } from 'lucide-react';
+import { ThreeClimateCanvas } from './ThreeClimateCanvas';
+import { ShieldCheck, ArrowRight, MessageCircle, Phone, Star, MapPin, CheckCircle2, Zap, Award, Sparkles, Box } from 'lucide-react';
 
 interface Props {
   lang: Language;
@@ -10,7 +11,7 @@ interface Props {
 
 export const HeroSection: React.FC<Props> = ({ lang, onOpenContactModal }) => {
   const t = TRANSLATIONS[lang].hero;
-  const [activeTab, setActiveTab] = useState<'aerotermia' | 'clima' | 'calefaccion'>('aerotermia');
+  const [activeTab, setActiveTab] = useState<'aerotermia' | 'clima' | 'calefaccion' | '3d'>('aerotermia');
 
   const showcaseData = {
     aerotermia: {
@@ -42,7 +43,7 @@ export const HeroSection: React.FC<Props> = ({ lang, onOpenContactModal }) => {
     }
   };
 
-  const current = showcaseData[activeTab];
+  const current = activeTab !== '3d' ? showcaseData[activeTab] : showcaseData.aerotermia;
 
   return (
     <section className="relative pt-36 pb-20 sm:pt-40 sm:pb-24 lg:pt-44 lg:pb-28 overflow-hidden bg-transparent">
@@ -84,7 +85,13 @@ export const HeroSection: React.FC<Props> = ({ lang, onOpenContactModal }) => {
               </button>
 
               <a
-                href={`https://wa.me/${BUSINESS_INFO.whatsapp}?text=Hola%20BCN%20Clima`}
+                href={`https://wa.me/${BUSINESS_INFO.whatsapp}?text=${encodeURIComponent(
+                  lang === 'ca'
+                    ? 'Hola BCN Clima, sol·licito informació i pressupost'
+                    : lang === 'en'
+                    ? 'Hello BCN Clima, I request information and a quote'
+                    : 'Hola BCN Clima, solicito información y presupuesto'
+                )}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-emerald-600/30 hover:bg-emerald-600/40 border border-emerald-400/50 text-emerald-200 font-bold text-xs backdrop-blur-md transition-all flex items-center justify-center gap-2 shadow-lg"
@@ -126,116 +133,159 @@ export const HeroSection: React.FC<Props> = ({ lang, onOpenContactModal }) => {
 
           {/* Right Column: Perfect Real-World Project & Engineering Showcase Card */}
           <div className="lg:col-span-6" id="simulador-3d">
-            <div className="relative rounded-3xl overflow-hidden border border-white/20 bg-slate-950/80 backdrop-blur-2xl shadow-2xl flex flex-col">
-              {/* Category Tab Switcher - Fully localized across CA, ES, EN */}
-              <div className="p-3 bg-slate-900/80 border-b border-white/10 flex items-center gap-1.5 sm:gap-2">
-                <button
-                  onClick={() => setActiveTab('aerotermia')}
-                  className={`flex-1 py-2 px-2.5 rounded-xl text-xs font-bold transition-all text-center cursor-pointer ${
-                    activeTab === 'aerotermia'
-                      ? 'bg-cyan-500 text-slate-950 shadow-md shadow-cyan-500/25'
-                      : 'text-slate-300 hover:text-white hover:bg-slate-800'
-                  }`}
-                >
-                  {lang === 'ca' ? 'Aerotèrmia' : lang === 'en' ? 'Aerothermal' : 'Aerotermia'}
-                </button>
-                <button
-                  onClick={() => setActiveTab('clima')}
-                  className={`flex-1 py-2 px-2.5 rounded-xl text-xs font-bold transition-all text-center cursor-pointer ${
-                    activeTab === 'clima'
-                      ? 'bg-cyan-500 text-slate-950 shadow-md shadow-cyan-500/25'
-                      : 'text-slate-300 hover:text-white hover:bg-slate-800'
-                  }`}
-                >
-                  {lang === 'ca' ? 'Aire Condicionat' : lang === 'en' ? 'Air Conditioning' : 'Aire Acondicionado'}
-                </button>
-                <button
-                  onClick={() => setActiveTab('calefaccion')}
-                  className={`flex-1 py-2 px-2.5 rounded-xl text-xs font-bold transition-all text-center cursor-pointer ${
-                    activeTab === 'calefaccion'
-                      ? 'bg-cyan-500 text-slate-950 shadow-md shadow-cyan-500/25'
-                      : 'text-slate-300 hover:text-white hover:bg-slate-800'
-                  }`}
-                >
-                  {lang === 'ca' ? 'Calderes' : lang === 'en' ? 'Boilers' : 'Calderas'}
-                </button>
-              </div>
-
-              {/* Crisp Magazine-Grade Photo of the Installation */}
-              <div className="relative h-64 sm:h-72 overflow-hidden group">
-                <img
-                  src={current.image}
-                  alt={current.title}
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent" />
-
-                {/* Floating Badges on Top of Photo */}
-                <div className="absolute top-4 left-4 flex items-center gap-2">
-                  <span className="font-mono text-xs font-bold px-3 py-1 rounded-full bg-slate-950/80 text-cyan-300 border border-cyan-500/40 backdrop-blur-md shadow-md">
-                    {current.badge}
-                  </span>
-                </div>
-
-                <div className="absolute top-4 right-4 flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-950/80 text-slate-300 text-xs font-mono border border-white/10 backdrop-blur-md">
-                  <MapPin className="w-3.5 h-3.5 text-cyan-400" />
-                  <span>{current.location}</span>
-                </div>
-
-                {/* Title overlay at bottom of photo */}
-                <div className="absolute bottom-4 left-4 right-4">
-                  <h3 className="text-xl sm:text-2xl font-black text-white leading-tight drop-shadow-md">
-                    {current.title}
-                  </h3>
-                  <p className="text-xs text-slate-200 mt-1 drop-shadow">
-                    {current.subtitle}
-                  </p>
-                </div>
-              </div>
-
-              {/* Benefits & Action Footer */}
-              <div className="p-5 sm:p-6 bg-slate-950/90 space-y-4">
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
-                  <div className="flex items-center gap-2.5 p-3 rounded-xl bg-slate-900 border border-slate-800 text-slate-200">
-                    <Zap className="w-4 h-4 text-amber-400 shrink-0" />
-                    <span className="font-semibold">{current.saving}</span>
-                  </div>
-
-                  <div className="flex items-center gap-2.5 p-3 rounded-xl bg-slate-900 border border-slate-800 text-slate-200">
-                    <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
-                    <span>{current.feature}</span>
-                  </div>
-                </div>
-
-                {/* Direct Action Row */}
-                <div className="pt-2 flex flex-col sm:flex-row items-center justify-between gap-3">
-                  <div className="flex items-center gap-2 text-xs font-mono text-slate-400">
-                    <Award className="w-4 h-4 text-cyan-400" />
-                    <span>
-                      {lang === 'ca'
-                        ? 'Garantia Oficial BCN Clima: 5 Anys'
-                        : lang === 'en'
-                        ? 'Official Warranty: 5 Years'
-                        : 'Garantía Oficial BCN Clima: 5 Años'}
-                    </span>
-                  </div>
-
+            {activeTab === '3d' ? (
+              <div className="relative rounded-3xl overflow-hidden border border-white/20 bg-slate-950/80 backdrop-blur-2xl shadow-2xl flex flex-col">
+                {/* Category Tab Switcher with 3D Mode active */}
+                <div className="p-3 bg-slate-900/80 border-b border-white/10 flex items-center gap-1.5 sm:gap-2">
                   <button
-                    onClick={onOpenContactModal}
-                    className="w-full sm:w-auto px-5 py-2.5 rounded-xl bg-cyan-500 hover:bg-cyan-400 active:bg-cyan-600 text-slate-950 font-bold text-xs uppercase tracking-wider transition-colors flex items-center justify-center gap-2 cursor-pointer shadow-lg shadow-cyan-500/20"
+                    onClick={() => setActiveTab('aerotermia')}
+                    className="flex-1 py-2 px-2 rounded-xl text-xs font-bold transition-all text-center cursor-pointer text-slate-300 hover:text-white hover:bg-slate-800"
                   >
-                    <span>
-                      {lang === 'ca'
-                        ? 'Demanar Pressupost'
-                        : lang === 'en'
-                        ? 'Request a Quote'
-                        : 'Pedir Presupuesto'}
-                    </span>
-                    <ArrowRight className="w-4 h-4" />
+                    {lang === 'ca' ? 'Aerotèrmia' : lang === 'en' ? 'Aerothermal' : 'Aerotermia'}
+                  </button>
+                  <button
+                    onClick={() => setActiveTab('clima')}
+                    className="flex-1 py-2 px-2 rounded-xl text-xs font-bold transition-all text-center cursor-pointer text-slate-300 hover:text-white hover:bg-slate-800"
+                  >
+                    {lang === 'ca' ? 'Aire' : lang === 'en' ? 'AC' : 'Aire'}
+                  </button>
+                  <button
+                    onClick={() => setActiveTab('calefaccion')}
+                    className="flex-1 py-2 px-2 rounded-xl text-xs font-bold transition-all text-center cursor-pointer text-slate-300 hover:text-white hover:bg-slate-800"
+                  >
+                    {lang === 'ca' ? 'Calderes' : lang === 'en' ? 'Boilers' : 'Calderas'}
+                  </button>
+                  <button
+                    onClick={() => setActiveTab('3d')}
+                    className="flex-1 py-2 px-2 rounded-xl text-xs font-bold transition-all text-center cursor-pointer bg-cyan-500 text-slate-950 shadow-md shadow-cyan-500/25 flex items-center justify-center gap-1"
+                  >
+                    <Box className="w-3.5 h-3.5" />
+                    <span>{lang === 'ca' ? 'Model 3D' : lang === 'en' ? '3D Unit' : 'Modelo 3D'}</span>
                   </button>
                 </div>
+
+                {/* Interactive Three.js Unit */}
+                <ThreeClimateCanvas lang={lang} isEmbedded />
               </div>
-            </div>
+            ) : (
+              <div className="relative rounded-3xl overflow-hidden border border-white/20 bg-slate-950/80 backdrop-blur-2xl shadow-2xl flex flex-col">
+                {/* Category Tab Switcher */}
+                <div className="p-3 bg-slate-900/80 border-b border-white/10 flex items-center gap-1.5 sm:gap-2">
+                  <button
+                    onClick={() => setActiveTab('aerotermia')}
+                    className={`flex-1 py-2 px-2 rounded-xl text-xs font-bold transition-all text-center cursor-pointer ${
+                      activeTab === 'aerotermia'
+                        ? 'bg-cyan-500 text-slate-950 shadow-md shadow-cyan-500/25'
+                        : 'text-slate-300 hover:text-white hover:bg-slate-800'
+                    }`}
+                  >
+                    {lang === 'ca' ? 'Aerotèrmia' : lang === 'en' ? 'Aerothermal' : 'Aerotermia'}
+                  </button>
+                  <button
+                    onClick={() => setActiveTab('clima')}
+                    className={`flex-1 py-2 px-2 rounded-xl text-xs font-bold transition-all text-center cursor-pointer ${
+                      activeTab === 'clima'
+                        ? 'bg-cyan-500 text-slate-950 shadow-md shadow-cyan-500/25'
+                        : 'text-slate-300 hover:text-white hover:bg-slate-800'
+                    }`}
+                  >
+                    {lang === 'ca' ? 'Aire' : lang === 'en' ? 'AC' : 'Aire'}
+                  </button>
+                  <button
+                    onClick={() => setActiveTab('calefaccion')}
+                    className={`flex-1 py-2 px-2 rounded-xl text-xs font-bold transition-all text-center cursor-pointer ${
+                      activeTab === 'calefaccion'
+                        ? 'bg-cyan-500 text-slate-950 shadow-md shadow-cyan-500/25'
+                        : 'text-slate-300 hover:text-white hover:bg-slate-800'
+                    }`}
+                  >
+                    {lang === 'ca' ? 'Calderes' : lang === 'en' ? 'Boilers' : 'Calderas'}
+                  </button>
+                  <button
+                    onClick={() => setActiveTab('3d')}
+                    className="flex-1 py-2 px-2 rounded-xl text-xs font-bold transition-all text-center cursor-pointer text-slate-300 hover:text-white hover:bg-slate-800 flex items-center justify-center gap-1"
+                  >
+                    <Box className="w-3.5 h-3.5" />
+                    <span>{lang === 'ca' ? 'Model 3D' : lang === 'en' ? '3D Unit' : 'Modelo 3D'}</span>
+                  </button>
+                </div>
+
+                {/* Crisp Magazine-Grade Photo of the Installation */}
+                <div className="relative h-64 sm:h-72 overflow-hidden group">
+                  <img
+                    src={current.image}
+                    alt={current.title}
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent" />
+
+                  {/* Floating Badges on Top of Photo */}
+                  <div className="absolute top-4 left-4 flex items-center gap-2">
+                    <span className="font-mono text-xs font-bold px-3 py-1 rounded-full bg-slate-950/80 text-cyan-300 border border-cyan-500/40 backdrop-blur-md shadow-md">
+                      {current.badge}
+                    </span>
+                  </div>
+
+                  <div className="absolute top-4 right-4 flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-950/80 text-slate-300 text-xs font-mono border border-white/10 backdrop-blur-md">
+                    <MapPin className="w-3.5 h-3.5 text-cyan-400" />
+                    <span>{current.location}</span>
+                  </div>
+
+                  {/* Title overlay at bottom of photo */}
+                  <div className="absolute bottom-4 left-4 right-4">
+                    <h3 className="text-xl sm:text-2xl font-black text-white leading-tight drop-shadow-md">
+                      {current.title}
+                    </h3>
+                    <p className="text-xs text-slate-200 mt-1 drop-shadow">
+                      {current.subtitle}
+                    </p>
+                  </div>
+                </div>
+
+                {/* Benefits & Action Footer */}
+                <div className="p-5 sm:p-6 bg-slate-950/90 space-y-4">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+                    <div className="flex items-center gap-2.5 p-3 rounded-xl bg-slate-900 border border-slate-800 text-slate-200">
+                      <Zap className="w-4 h-4 text-amber-400 shrink-0" />
+                      <span className="font-semibold">{current.saving}</span>
+                    </div>
+
+                    <div className="flex items-center gap-2.5 p-3 rounded-xl bg-slate-900 border border-slate-800 text-slate-200">
+                      <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+                      <span>{current.feature}</span>
+                    </div>
+                  </div>
+
+                  {/* Direct Action Row */}
+                  <div className="pt-2 flex flex-col sm:flex-row items-center justify-between gap-3">
+                    <div className="flex items-center gap-2 text-xs font-mono text-slate-400">
+                      <Award className="w-4 h-4 text-cyan-400" />
+                      <span>
+                        {lang === 'ca'
+                          ? 'Garantia Oficial BCN Clima: 5 Anys'
+                          : lang === 'en'
+                          ? 'Official Warranty: 5 Years'
+                          : 'Garantía Oficial BCN Clima: 5 Años'}
+                      </span>
+                    </div>
+
+                    <button
+                      onClick={onOpenContactModal}
+                      className="w-full sm:w-auto px-5 py-2.5 rounded-xl bg-cyan-500 hover:bg-cyan-400 active:bg-cyan-600 text-slate-950 font-bold text-xs uppercase tracking-wider transition-colors flex items-center justify-center gap-2 cursor-pointer shadow-lg shadow-cyan-500/20"
+                    >
+                      <span>
+                        {lang === 'ca'
+                          ? 'Demanar Pressupost'
+                          : lang === 'en'
+                          ? 'Request a Quote'
+                          : 'Pedir Presupuesto'}
+                      </span>
+                      <ArrowRight className="w-4 h-4" />
+                    </button>
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
         </div>
 
